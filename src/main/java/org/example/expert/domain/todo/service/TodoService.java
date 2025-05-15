@@ -25,17 +25,23 @@ public class TodoService {
     private final TodoRepository todoRepository;
     private final WeatherClient weatherClient;
 
+    @Transactional
     public TodoSaveResponse saveTodo(AuthUser authUser, TodoSaveRequest todoSaveRequest) {
+
+        //정적 팩토리 메스로 유저 객체 생성
         User user = User.fromAuthUser(authUser);
 
+        //날씨 데이터 오늘의 날씨
         String weather = weatherClient.getTodayWeather();
 
+        //Todo생성
         Todo newTodo = new Todo(
                 todoSaveRequest.getTitle(),
                 todoSaveRequest.getContents(),
                 weather,
                 user
         );
+
         Todo savedTodo = todoRepository.save(newTodo);
 
         return new TodoSaveResponse(
@@ -47,10 +53,10 @@ public class TodoService {
         );
     }
 
-    public Page<TodoResponse> getTodos(int page, int size) {
+    public Page<TodoResponse> getTodos(int page, int size, String weather) {
         Pageable pageable = PageRequest.of(page - 1, size);
 
-        Page<Todo> todos = todoRepository.findAllByOrderByModifiedAtDesc(pageable);
+        Page<Todo> todos = todoRepository. findAllByWeather(weather,pageable);
 
         return todos.map(todo -> new TodoResponse(
                 todo.getId(),
