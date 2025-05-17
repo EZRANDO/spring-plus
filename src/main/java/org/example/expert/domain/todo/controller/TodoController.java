@@ -8,9 +8,11 @@ import org.example.expert.domain.todo.dto.request.TodoSaveRequest;
 import org.example.expert.domain.todo.dto.response.TodoResponse;
 import org.example.expert.domain.todo.dto.response.TodoSaveResponse;
 import org.example.expert.domain.todo.service.TodoService;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,12 +29,12 @@ public class TodoController {
     }
 
     @GetMapping("/todos")
-    public ResponseEntity<Page<TodoResponse>> getTodos(
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String weather
+    public ResponseEntity<List<TodoResponse>> getTodos(
+            @RequestParam(required = false) String weather,
+            @RequestParam(required = false) LocalDateTime startDate,
+            @RequestParam(required = false) LocalDateTime endDate
     ) {
-        return ResponseEntity.ok(todoService.getTodos(page, size, weather));
+        return ResponseEntity.ok(todoService.getTodos(weather,startDate,endDate));
     }
 
     @GetMapping("/todos/{todoId}")
