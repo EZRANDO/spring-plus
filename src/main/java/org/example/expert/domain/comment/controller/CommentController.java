@@ -27,9 +27,10 @@ public class CommentController {
     ) {
         return ResponseEntity.ok(commentService.saveComment(authUser, todoId, commentSaveRequest));
     }
-
+    //CommentController 클래스의 getComments() API를 호출할 때 N+1 문제가 발생
     @GetMapping("/todos/{todoId}/comments")
     public ResponseEntity<List<CommentResponse>> getComments(@PathVariable long todoId) {
         return ResponseEntity.ok(commentService.getComments(todoId));
     }
+
 }

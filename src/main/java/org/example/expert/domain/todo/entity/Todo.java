@@ -30,7 +30,7 @@ public class Todo extends Timestamped {
     @OneToMany(mappedBy = "todo", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "todo")
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.PERSIST)
     private List<Manager> managers = new ArrayList<>();
 
     public Todo(String title, String contents, String weather, User user) {
@@ -38,6 +38,9 @@ public class Todo extends Timestamped {
         this.contents = contents;
         this.weather = weather;
         this.user = user;
+        //연관관계 맵핑 new Manager(user, this) → Manager.todo = this;
         this.managers.add(new Manager(user, this));
     }
 }
+//- 할 일을 새로 저장할 시, 할 일을 생성한 유저는 담당자로 자동 등록되어야 합니다.
+//- JPA의 `cascade` 기능을 활용해 할 일을 생성한 유저가 담당자로 등록될 수 있게 해주세요.
