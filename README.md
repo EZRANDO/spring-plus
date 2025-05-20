@@ -74,5 +74,5 @@ JPA의 이해를 바탕으로 데이터 처리 흐름을 점검하고, 트랜잭
 - feat: N+1문제 해결
   
 #### ✅ 변경된 파일 목록
--CommentRepository.java
+- CommentRepository.java
    
