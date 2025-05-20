@@ -10,7 +10,7 @@ JPA의 이해를 바탕으로 데이터 처리 흐름을 점검하고, 트랜잭
 
 - readOnly 설정으로 인해 INSERT 불가 오류를 수정했습니다.
 - feat: User 엔티티에 nickname 기능 추가, 할 일 저장 기능에 트랜젝션 어노테이션 추가
-## ✅ 변경된 파일 목록
+#### ✅ 변경된 파일 목록
 - JwtUtil.java
 - TodoController.java
 - TodoRepository.java
